@@ -1,8 +1,8 @@
 const allText = document.querySelector(".header__info");
-const showAllText = document.querySelector(".detailed__text");
+const showAllText = document.querySelector(".header__detailed");
 
 const openInfo = document.querySelectorAll(".cards__title");
-const hiddenInfo = document.querySelectorAll(".hidden");
+const hiddenInfo = document.querySelectorAll(".cards__description-hidden");
 
 const paginationItems = document.querySelectorAll(".pagination__item");
 
@@ -13,35 +13,16 @@ const sortMenu = document.querySelector(".card-choose__select_trigger");
 
 const links = document.querySelectorAll("a");
 
-// =======================Pagination bar=============================
-
-paginationItems.forEach((item) => {
-  item.addEventListener("click", doActive);
-});
-
-function doActive() {
-  paginationItems.forEach((item) => {
-    item.classList.remove("pagination__item-active");
-  });
-  this.classList.add("pagination__item-active");
-}
-
 // =====================Show all text in header======================
 
 showAllText.addEventListener("click", () => {
   allText.classList.toggle("header__info_show");
 });
 
-// =======================Show info about cards======================
+// ========================Slider===============================
 
-openInfo.forEach((openItem) => {
-  hiddenInfo.forEach((hiddenItem) => {
-    if (openItem.id === hiddenItem.dataset.id) {
-      openItem.addEventListener("click", function () {
-        hiddenItem.classList.toggle("shown");
-      });
-    }
-  });
+$(".navigation__slides").slick({
+  slidesToShow: 2,
 });
 
 // =======================Selected menu==============================
@@ -67,16 +48,36 @@ window.addEventListener("click", closeWindow);
 function closeWindow(e) {
   let target = e.target;
   if (!target.classList.contains("card-choose__select_trigger")) {
-    console.log(true);
     mainList.classList.remove("card-choose__showItems");
   }
 }
 
-// ========================Slider===============================
+// =======================Show info about cards======================
 
-$(".navigation__slides").slick({
-  slidesToShow: 2,
+openInfo.forEach((openItem) => {
+  hiddenInfo.forEach((hiddenItem) => {
+    if (openItem.id === hiddenItem.dataset.id) {
+      openItem.addEventListener("click", function () {
+        hiddenItem.classList.toggle("cards__description-shown");
+      });
+    }
+  });
 });
+
+// =======================Pagination bar=============================
+
+paginationItems.forEach((item) => {
+  item.addEventListener("click", doActive);
+});
+
+function doActive() {
+  paginationItems.forEach((item) => {
+    item.classList.remove("pagination__item_active");
+  });
+  this.classList.add("pagination__item_active");
+}
+
+// =======================Delete =============================
 
 links.forEach((link) => {
   link.addEventListener("click", (e) => {

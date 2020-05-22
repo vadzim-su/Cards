@@ -127,4 +127,9 @@ table {
 a {
   text-decoration: none;
   color: #000;
+  cursor: none;
+}
+
+button {
+  outline: none;
 }
